@@ -1,0 +1,44 @@
+{
+    "name": "karnoweb/smart-cache",
+    "description": "Model-aware smart caching for Laravel with automatic invalidation, tag support, and stampede protection.",
+    "keywords": [
+        "laravel",
+        "cache",
+        "model-cache",
+        "smart-cache",
+        "tags"
+    ],
+    "license": "MIT",
+    "version": "1.0.0",
+    "require": {
+        "php": "^8.2",
+        "illuminate/cache": "^10.0|^11.0|^12.0",
+        "illuminate/support": "^10.0|^11.0|^12.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0|^9.0|^10.0",
+        "phpunit/phpunit": "^10.0|^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Karnoweb\\SmartCache\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Karnoweb\\SmartCache\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Karnoweb\\SmartCache\\SmartCacheServiceProvider"
+            ],
+            "aliases": {
+                "SmartCache": "Karnoweb\\SmartCache\\Facades\\SmartCache"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

@@ -55,8 +55,43 @@ class User extends Model
 | 2 | [نصب و راه‌اندازی](docs/2-installation.md) |
 | 3 | [پیکربندی](docs/3-configuration.md) |
 | 4 | [استفاده و API](docs/4-usage.md) |
+| 5 | [جزئیات فنی](docs/5-technical-details.md) — flush، race، TTL، stampede، محدودیت‌ها |
 
-برای افزودن مباحث جدید در آینده، فایل‌های شماره‌دار جدید (مثلاً `5-advanced.md`) را در `docs` اضافه کنید و لینک آن‌ها را در [docs/0-index.md](docs/0-index.md) ثبت کنید.
+برای افزودن مباحث جدید در آینده، فایل‌های شماره‌دار جدید (مثلاً `6-testing.md`) را در `docs` اضافه کنید و لینک آن‌ها را در [docs/0-index.md](docs/0-index.md) ثبت کنید.
+
+---
+
+## مقایسه با سایر روش‌ها
+
+| ویژگی | Laravel Cache (خام) | Laravel Tagged Cache | Smart Cache |
+|--------|----------------------|----------------------|-------------|
+| **مدل‌محور** | خیر — کلیدها دستی و پراکنده | خیر — تگ دستی | بله — کلیدها زیر prefix مدل |
+| **Flush به‌ازای «مدل»** | خیر — باید کلیدها را بدانی | بله — با flush تگ | بله — `SmartCache::for(User::class)->flush()` |
+| **Auto-invalidation با رویداد مدل** | خیر | خیر | بله (با trait و config) |
+| **Stampede protection در remember** | خیر (خودت lock بزن) | خیر | بله (قابل قطع با config) |
+| **کار با File/Database (بدون تگ)** | بله | خیر — فقط Redis/Memcached | بله — با RegistryDriver و lock در صورت پشتیبانی استور |
+| **ولیدیشن کلید** | خیر | خیر | بله (طول، کاراکترهای ممنوع) |
+| **Default TTL متمرکز** | از config کش | از config کش | از config پکیج (`default_ttl`) |
+
+در مقایسه با پکیج‌هایی مثل **laravel-model-cache** (کش خود Eloquent): Smart Cache کش «دلخواه» برای مدل است (هر کلید/مقداری)، نه فقط کش کردن خود کوئری/مدل؛ و invalidation فعلاً در سطح «کل مدل» است، نه per-record (گرانولار در نسخه‌های بعدی هدف است).
+
+---
+
+## تست
+
+```bash
+composer install
+./vendor/bin/phpunit
+```
+
+تست‌های واحد و یکپارچگی برای API، ولیدیشن کلید، RegistryDriver (array)، و یکپارچگی با Facade و استور array/file وجود دارد. برای جزئیات فنی (flush، race، stampede) به [docs/5-technical-details.md](docs/5-technical-details.md) مراجعه کنید.
+
+---
+
+## قدم‌های بعدی (پیشنهادی)
+
+- **ورژن اولیه**: برای ریپوهای تازه می‌توان با `v0.1.0` تگ زد و به [Packagist](https://packagist.org) فرستاد تا نصب با `composer require karnoweb/smart-cache` بدون تعریف repository ممکن شود.
+- **Granular invalidation**: در نسخه‌های بعد می‌توان invalidation به‌ازای رکورد (per-record) اضافه کرد تا به‌جای flush تمام کش مدل، فقط کلیدهای وابسته به همان رکورد پاک شوند و مشکل flush تهاجمی کمتر شود.
 
 ---
 

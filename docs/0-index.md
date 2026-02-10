@@ -12,6 +12,7 @@
 | 2 | [2-installation.md](2-installation.md) | نصب و راه‌اندازی |
 | 3 | [3-configuration.md](3-configuration.md) | پیکربندی و متغیرهای محیطی |
 | 4 | [4-usage.md](4-usage.md) | استفاده، API و مثال‌ها |
+| 5 | [5-technical-details.md](5-technical-details.md) | جزئیات فنی: flush، race condition، TTL، stampede، محدودیت‌ها |
 
 ---
 
@@ -19,9 +20,9 @@
 
 برای افزودن بخش جدید، یک فایل با شمارهٔ بعدی بسازید و لینک آن را در این جدول اضافه کنید، مثلاً:
 
-- `5-advanced.md` — موضوعات پیشرفته
 - `6-testing.md` — تست و mock
 - `7-troubleshooting.md` — عیب‌یابی
+- `8-granular-invalidation.md` — invalidation به‌ازای رکورد (در صورت اضافه شدن)
 - …
 
 ---

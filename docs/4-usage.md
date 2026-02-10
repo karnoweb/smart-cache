@@ -122,4 +122,4 @@ SmartCache::for(User::class)->key('config')->stable()->put($config);
 
 ---
 
-[← فهرست](0-index.md) · [قبلی: پیکربندی](3-configuration.md)
+[← فهرست](0-index.md) · [قبلی: پیکربندی](3-configuration.md) · [بعدی: جزئیات فنی →](5-technical-details.md)
